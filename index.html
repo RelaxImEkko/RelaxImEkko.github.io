@@ -1,45 +1,132 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Github Комаров АДБ-22-06</title>
-</head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Резюме</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
 
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .profile img {
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+
+    .profile p {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .input-field {
+      margin: 20px 0;
+      padding: 10px;
+      font-size: 16px;
+      width: 70%;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    .btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      margin: 10px;
+    }
+
+    .btn:hover {
+      background-color: #45a049;
+      transform: scale(1.1);
+    }
+
+    .btn:active {
+      background-color: #388E3C;
+      transform: scale(1);
+    }
+
+    .btn-random-bg {
+      background-color: #FF9800;
+    }
+  </style>
+</head>
 <body>
-    <div class="block">
-        <h1>Резюме</h1> 
-        <p>Фамилия: Комаров</p>
-        <p>Имя: Артём</p>
-        <p>Группа: АДБ-22-06</p>
-        <h2>JavaScript Confirm Box</h2>
-        <button class="btn" onclick="myFunction()">Try it</button>
-        <ul id="demo">
-        </ul>
+  <header>
+    <h1>Резюме</h1>
+  </header>
+
+  <div class="container">
+    <div class="profile">
+      <img src="/dog.png" alt="Фото" />
+      <p id="name">Артём Фамилия</p>
     </div>
 
-    <script>
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
-        function myFunction() {
-            (async () => {
-                let response = await fetch('https://kav-api.kovalev.team/servodrive/lastActualData?servoDriveId=1');
-                let el = document.getElementById('demo')
-                el.innerHTML = ""
-                let text = await response.text(); // прочитать тело ответа как текст
-                for (const [key, value] of Object.entries(JSON.parse(text)[0])) {
-                    const newEl = document.createElement("li")
-                    newEl.appendChild(document.createTextNode(`${key}: ${value}`))
-                    el.appendChild(newEl)
-                    await sleep(100)
-                }
-            })()
-        }
-    </script>
+    <div>
+      <input class="input-field" type="text" id="newSurname" placeholder="Введите фамилию" />
+      <button class="btn" onclick="changeSurname()">Изменить фамилию</button>
+    </div>
 
+    <div>
+      <button class="btn btn-random-bg" onclick="changeBackgroundColor()">Изменить цвет фона</button>
+    </div>
+  </div>
+
+  <script>
+    // Функция для изменения фамилии
+    function changeSurname() {
+      const newSurname = document.getElementById("newSurname").value;
+      if (newSurname.trim() !== "") {
+        document.getElementById("name").textContent = "Артём " + newSurname;
+      } else {
+        alert("Пожалуйста, введите фамилию.");
+      }
+    }
+
+    // Функция для изменения цвета фона на случайный
+    function changeBackgroundColor() {
+      const colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#F1C40F", "#8E44AD", "#1ABC9C"];
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      document.body.style.backgroundColor = randomColor;
+    }
+  </script>
 </body>
-
 </html>
